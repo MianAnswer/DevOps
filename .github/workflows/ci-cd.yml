@@ -20,6 +20,9 @@ jobs:
       - name: Run image in container
         run: docker run --rm myapp
 
+      - name: Stop container
+        run: docker stop myapp
+
   docker-test:
     runs-on: ubuntu-latest
 
