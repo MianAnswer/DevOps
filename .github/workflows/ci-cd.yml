@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build --target base -t myapp .
+      
+      - name: Run image in container
+        run: docker run -d --name myapp myapp
+
+      - name: Stop container
+        run: docker stop myapp && docker rm myapp
+
+  docker-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build test image
+        run: docker build --target test -t myapp-test .
+      
+      - name: Run test image in container
+        run: docker run --rm myapp-test
