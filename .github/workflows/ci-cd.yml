@@ -18,10 +18,10 @@ jobs:
         run: docker build --target base -t myapp .
       
       - name: Run image in container
-        run: docker run --rm myapp
+        run: docker run -d --name myapp myapp
 
       - name: Stop container
-        run: docker stop myapp
+        run: docker stop myapp && docker rm myapp
 
   docker-test:
     runs-on: ubuntu-latest
