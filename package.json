@@ -7,6 +7,10 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
+    "docker:build": "docker build --target base -t devops:latest .",
+    "docker:run": "docker run -d --name devops -p 3000:3000 devops:latest",
+    "docker:stop": "docker stop devops && docker rm devops",
+    "docker:start": "npm run docker:build && npm run docker:run",
     "start": "node app.js",
     "test": "echo \"Testing not implemented.\" && exit 0"
   },
